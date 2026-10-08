@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   Cpu, 
   Layers, 
   Terminal, 
-  Mail, 
-  ArrowRight, 
-  CheckCircle2, 
   Github, 
   Sparkles,
   ExternalLink,
@@ -37,36 +34,6 @@ const pillars: Pillar[] = [
 ];
 
 export const App: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !email.includes('@')) return;
-
-    setIsLoading(true);
-    // Simulate lightweight async registration
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsSubmitted(true);
-      try {
-        const stored = JSON.parse(localStorage.getItem('selimi_subscribers') || '[]');
-        stored.push({ email, timestamp: new Date().toISOString() });
-        localStorage.setItem('selimi_subscribers', JSON.stringify(stored));
-      } catch {
-        // Safe fallback
-      }
-    }, 700);
-  };
-
-  const copyEmail = () => {
-    navigator.clipboard.writeText('meritonmk1@gmail.com');
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
     <>
       <div className="bg-ambient" />
@@ -116,39 +83,6 @@ export const App: React.FC = () => {
             </div>
           </div>
 
-          {/* Subscription / Notification Form */}
-          <div className="form-wrapper">
-            {isSubmitted ? (
-              <div className="form-success">
-                <CheckCircle2 size={18} />
-                <span>You're on the early access list. We'll notify you on launch!</span>
-              </div>
-            ) : (
-              <form className="notify-form" onSubmit={handleSubmit}>
-                <div className="input-icon">
-                  <Mail size={18} />
-                </div>
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter your email for private beta access"
-                  className="notify-input"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={isLoading}
-                />
-                <button type="submit" className="notify-btn" disabled={isLoading}>
-                  {isLoading ? 'Connecting...' : (
-                    <>
-                      <span>Notify Me</span>
-                      <ArrowRight size={15} />
-                    </>
-                  )}
-                </button>
-              </form>
-            )}
-          </div>
-
           {/* Pillars Grid */}
           <div className="pillars-grid">
             {pillars.map((pillar, idx) => (
@@ -170,16 +104,6 @@ export const App: React.FC = () => {
           </div>
 
           <div className="footer-links">
-            <button 
-              type="button" 
-              onClick={copyEmail}
-              className="footer-link" 
-              style={{ background: 'none', border: 'none', cursor: 'pointer', font: 'inherit' }}
-            >
-              <Mail size={15} />
-              <span>{copied ? 'Copied to clipboard!' : 'contact@selimi.tech'}</span>
-            </button>
-
             <a 
               href="https://github.com/itsmeritoni-droid/selimi-tech" 
               target="_blank" 
