@@ -1,123 +1,70 @@
-import React from 'react';
-import { 
-  Cpu, 
-  Layers, 
-  Terminal, 
-  Github, 
-  Sparkles,
-  ExternalLink,
-  ShieldCheck
-} from 'lucide-react';
-
-interface Pillar {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-}
-
-const pillars: Pillar[] = [
-  {
-    title: 'Intelligent AI Architecture',
-    description: 'Autonomous agents, custom LLM orchestration, and smart cognitive workflows built for high velocity.',
-    icon: <Cpu size={20} />
-  },
-  {
-    title: 'Modern Cloud Infrastructure',
-    description: 'Serverless deployments, distributed edge computing, and ultra-resilient cloud architectures.',
-    icon: <Layers size={20} />
-  },
-  {
-    title: 'Full-Stack Engineering',
-    description: 'Crafting performant web, mobile, and API systems engineered with precision and simplicity.',
-    icon: <Terminal size={20} />
-  }
-];
+import React, { useState, useEffect } from 'react';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Leistungen from './pages/Leistungen';
+import Arbeitsweise from './pages/Arbeitsweise';
+import Kontakt from './pages/Kontakt';
+import Impressum from './pages/Impressum';
+import Datenschutz from './pages/Datenschutz';
 
 export const App: React.FC = () => {
+  // Seiten-Routing basierend auf URL-Pfad
+  const getInitialPage = (): string => {
+    const path = window.location.pathname.replace(/^\/|\/$/g, '').toLowerCase();
+    if (['leistungen', 'arbeitsweise', 'kontakt', 'impressum', 'datenschutz'].includes(path)) {
+      return path;
+    }
+    return 'startseite';
+  };
+
+  const [activePage, setActivePage] = useState<string>(getInitialPage);
+
+  // Synchronisation mit Browser-Historie
+  useEffect(() => {
+    const handlePopState = () => {
+      setActivePage(getInitialPage());
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const navigateTo = (pageId: string) => {
+    setActivePage(pageId);
+    const targetPath = pageId === 'startseite' ? '/' : `/${pageId}`;
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState({}, '', targetPath);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const renderActivePage = () => {
+    switch (activePage) {
+      case 'leistungen':
+        return <Leistungen onNavigate={navigateTo} />;
+      case 'arbeitsweise':
+        return <Arbeitsweise onNavigate={navigateTo} />;
+      case 'kontakt':
+        return <Kontakt />;
+      case 'impressum':
+        return <Impressum />;
+      case 'datenschutz':
+        return <Datenschutz />;
+      case 'startseite':
+      default:
+        return <Home onNavigate={navigateTo} />;
+    }
+  };
+
   return (
-    <>
-      <div className="bg-ambient" />
-      <div className="bg-grid" />
-
-      <div className="container">
-        {/* Header */}
-        <header className="header">
-          <a href="/" className="brand">
-            <div className="brand-logo">
-              <Sparkles size={18} />
-            </div>
-            <div className="brand-text">
-              SELIMI<span>TECH</span>
-            </div>
-          </a>
-
-          <div className="status-pill">
-            <span className="status-dot"></span>
-            <span>Systems Engineering in Progress</span>
-          </div>
-        </header>
-
-        {/* Main Content */}
-        <main className="main-content">
-          <div className="hero-badge">
-            <ShieldCheck size={14} />
-            <span>Platform Initializing &bull; Coming Soon</span>
-          </div>
-
-          <h1 className="hero-title">
-            Architecting the future of software and intelligence.
-          </h1>
-
-          <p className="hero-description">
-            We are engineering a minimalist, high-performance ecosystem for modern intelligent solutions. Our new digital headquarters will launch shortly.
-          </p>
-
-          {/* Launch Progress Meter */}
-          <div className="progress-container">
-            <div className="progress-header">
-              <span>SYSTEM BUILD PROGRESS</span>
-              <span>85% COMPLETED</span>
-            </div>
-            <div className="progress-bar-bg">
-              <div className="progress-bar-fill" />
-            </div>
-          </div>
-
-          {/* Pillars Grid */}
-          <div className="pillars-grid">
-            {pillars.map((pillar, idx) => (
-              <div key={idx} className="pillar-card">
-                <div className="card-icon">
-                  {pillar.icon}
-                </div>
-                <h3 className="card-title">{pillar.title}</h3>
-                <p className="card-desc">{pillar.description}</p>
-              </div>
-            ))}
-          </div>
-        </main>
-
-        {/* Footer */}
-        <footer className="footer">
-          <div>
-            &copy; {new Date().getFullYear()} Selimi Tech. All rights reserved.
-          </div>
-
-          <div className="footer-links">
-            <a 
-              href="https://github.com/itsmeritoni-droid/selimi-tech" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="footer-link"
-            >
-              <Github size={15} />
-              <span>GitHub</span>
-              <ExternalLink size={12} />
-            </a>
-          </div>
-        </footer>
-      </div>
-    </>
+    <div className="site-wrapper">
+      <Header activePage={activePage} onNavigate={navigateTo} />
+      <main id="main-content" className="site-main" role="main">
+        {renderActivePage()}
+      </main>
+      <Footer onNavigate={navigateTo} />
+    </div>
   );
 };
 
