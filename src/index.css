@@ -521,6 +521,65 @@ button {
   max-width: 720px;
 }
 
+.trust-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  margin-top: clamp(40px, 6vw, 64px);
+  padding-top: clamp(32px, 5vw, 48px);
+  border-top: 1px dashed var(--color-border-hairline);
+}
+
+@media (min-width: 580px) {
+  .trust-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 980px) {
+  .trust-metrics-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-md);
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-hairline);
+  border-radius: var(--radius-subtle);
+  transition: border-color 0.2s ease;
+}
+
+.metric-card:hover {
+  border-color: var(--color-border-hover);
+}
+
+.metric-val {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.2vw, 2.6rem);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.metric-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-accent-sage);
+  margin-bottom: 8px;
+}
+
+.metric-note {
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
 /* --------------------------------------------------------------------------
    8. Leistungen Übersicht & Grid
    -------------------------------------------------------------------------- */
@@ -695,6 +754,90 @@ button {
 .focus-text {
   font-size: var(--text-micro);
   color: var(--color-text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   9b. FAQ-Bereich
+   -------------------------------------------------------------------------- */
+.section-faq {
+  padding-top: clamp(60px, 8vw, 110px);
+  padding-bottom: clamp(60px, 8vw, 110px);
+  border-bottom: 1px solid var(--color-border-hairline);
+  background-color: var(--color-bg-canvas);
+}
+
+.faq-accordion-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-width: 920px;
+}
+
+.faq-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-hairline);
+  border-radius: var(--radius-subtle);
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.faq-card:hover {
+  border-color: var(--color-border-hover);
+}
+
+.faq-card.is-open {
+  border-color: var(--color-accent-sage);
+}
+
+.faq-question-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: clamp(16px, 2.5vw, 22px) clamp(18px, 3vw, 26px);
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.faq-question-btn:hover {
+  color: var(--color-accent-sage);
+}
+
+.faq-question-text {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.faq-toggle-icon {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  color: var(--color-text-muted);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.faq-answer-body {
+  padding: 0 clamp(18px, 3vw, 26px) clamp(18px, 3vw, 24px) clamp(18px, 3vw, 26px);
+  border-top: 1px dashed var(--color-border-hairline);
+  padding-top: var(--space-md);
+}
+
+.faq-answer-text {
+  font-size: var(--text-body);
+  color: var(--color-text-body);
+  line-height: 1.7;
 }
 
 /* --------------------------------------------------------------------------

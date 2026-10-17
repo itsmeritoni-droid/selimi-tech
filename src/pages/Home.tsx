@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SITE_CONTENT } from '../content/content';
 import { ProtectedEmail } from '../components/ProtectedEmail';
 
@@ -7,7 +7,8 @@ interface HomeProps {
 }
 
 export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
-  const { hero, intro, services, methodology, contact, brand } = SITE_CONTENT;
+  const { hero, intro, trustMetrics, services, methodology, faq, contact, brand } = SITE_CONTENT;
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   return (
     <div className="page-home">
@@ -77,6 +78,17 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 {intro.context}
               </p>
             </div>
+          </div>
+
+          {/* Kennzahlen & Qualitätsversprechen */}
+          <div className="trust-metrics-grid">
+            {trustMetrics.map((metric, idx) => (
+              <div key={idx} className="metric-card">
+                <div className="metric-val">{metric.value}</div>
+                <div className="metric-label">{metric.label}</div>
+                <div className="metric-note">{metric.note}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -158,7 +170,48 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* 5. Closing Contact Section (Ohne Formular, direkt & sauber) */}
+      {/* 5. FAQ-Bereich (Häufige Fragen & Suchintention) */}
+      <section className="section-faq" aria-labelledby="faq-heading">
+        <div className="container-fluid">
+          <div className="section-header-row">
+            <div>
+              <span className="section-category">{faq.category}</span>
+              <h2 id="faq-heading" className="section-heading">
+                {faq.headline}
+              </h2>
+            </div>
+          </div>
+
+          <div className="faq-accordion-container">
+            {faq.items.map((item, index) => {
+              const isOpen = openFaqIndex === index;
+              return (
+                <article key={index} className={`faq-card ${isOpen ? 'is-open' : ''}`}>
+                  <button
+                    type="button"
+                    className="faq-question-btn"
+                    onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${index}`}
+                  >
+                    <span className="faq-question-text">{item.question}</span>
+                    <span className="faq-toggle-icon" aria-hidden="true">
+                      {isOpen ? '—' : '+'}
+                    </span>
+                  </button>
+                  {isOpen && (
+                    <div id={`faq-answer-${index}`} className="faq-answer-body">
+                      <p className="faq-answer-text">{item.answer}</p>
+                    </div>
+                  )}
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Closing Contact Section (Ohne Formular, direkt & sauber) */}
       <section id="kontakt-bereich" className="section-contact" aria-labelledby="contact-heading">
         <div className="container-fluid">
           <div className="contact-box-wide">

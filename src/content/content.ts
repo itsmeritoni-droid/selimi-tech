@@ -19,6 +19,17 @@ export interface ValuePoint {
   description: string;
 }
 
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export interface TrustMetric {
+  value: string;
+  label: string;
+  note: string;
+}
+
 export const SITE_CONTENT = {
   brand: {
     wordmark: 'selimi.tech',
@@ -44,6 +55,13 @@ export const SITE_CONTENT = {
     statement: 'Wir verbinden saubere Programmierung mit verständlichem Online-Marketing.',
     context: 'Viele Websites sind langsam, unübersichtlich oder bringen keine Anfragen. Bei selimi.tech sorgen wir dafür, dass Ihre digitale Präsenz einfach funktioniert: schnell geladen, leicht bedienbar und klar auf Ihre Geschäftsziele ausgerichtet.'
   },
+
+  trustMetrics: [
+    { value: '< 1s', label: 'Ladezeit', note: 'Google Lighthouse 95+ für beste SEO-Rankings' },
+    { value: '100%', label: 'Maßarbeit', note: 'Sauberer Code ohne langsame Vorlagen' },
+    { value: 'DACH', label: 'Fokus', note: 'Unternehmen in Deutschland, Österreich & Schweiz' },
+    { value: '1:1', label: 'Direktkontakt', note: 'Persönliche Betreuung ohne Agentur-Wasserkopf' }
+  ] as TrustMetric[],
 
   services: [
     {
@@ -145,6 +163,33 @@ export const SITE_CONTENT = {
       description: 'Wir nutzen moderne Web-Standards, die auch in mehreren Jahren noch stabil, schnell und problemlos erweiterbar sind.'
     }
   ] as ValuePoint[],
+
+  faq: {
+    category: 'Häufig gestellte Fragen',
+    headline: 'Antworten zu Ablauf, Technik und Zusammenarbeit',
+    items: [
+      {
+        question: 'Was kostet eine professionelle Website bei selimi.tech?',
+        answer: 'Die Kosten richten sich nach dem genauen Funktions- und Projektumfang. Eine schlanke, hochperformante Unternehmens-Website bieten wir zu einem fairen, transparenten Festpreis an, während komplexe Web-Anwendungen individuell kalkuliert werden. Sie erhalten stets vor Projektbeginn ein verbindliches Angebot ohne versteckte Folgekosten.'
+      },
+      {
+        question: 'Wie schnell ist eine neue Website oder Web-App einsatzbereit?',
+        answer: 'Typische Unternehmens-Websites und Landingpages stellen wir in der Regel innerhalb von zwei bis vier Wochen fertig. Umfangreichere Web-Anwendungen erfordern je nach Funktionsumfang vier bis acht Wochen. Wir arbeiten in klar strukturierten Meilensteinen, sodass Sie den Fortschritt jederzeit nachvollziehen können.'
+      },
+      {
+        question: 'Warum setzt selimi.tech auf maßgeschneiderten Code statt WordPress oder Baukästen?',
+        answer: 'Baukästen und überladene CMS-Systeme leiden häufig unter extrem langsamen Ladezeiten, Sicherheitslücken und ständigen Wartungsproblemen. Durch maßgeschneiderte Entwicklung mit modernem TypeScript und React erzielen wir Ladezeiten unter einer Sekunde (Google Lighthouse 95+), höchste Sicherheit und beste Platzierungen bei Google.'
+      },
+      {
+        question: 'Betreuen Sie Kunden in ganz Deutschland, Österreich und der Schweiz?',
+        answer: 'Ja. Wir arbeiten vollständig digital und remote mit Unternehmen im gesamten DACH-Raum zusammen – darunter Betriebe und Dienstleister in Nordrhein-Westfalen (u. a. Remscheid, Wuppertal, Köln, Düsseldorf), Berlin, München, Wien und Zürich.'
+      },
+      {
+        question: 'Übernehmen Sie auch die laufende Betreuung und Online-Werbung?',
+        answer: 'Ja. Nach dem Onlinegang unterstützen wir Sie auf Wunsch bei der technischen Wartung, kontinuierlichen Suchmaschinenoptimierung (SEO) sowie der Betreuung gezielter Werbekampagnen auf Google und Social Media, um fortlaufend qualifizierte Anfragen zu gewinnen.'
+      }
+    ] as FAQItem[]
+  },
 
   contact: {
     title: 'Kontakt aufnehmen',
