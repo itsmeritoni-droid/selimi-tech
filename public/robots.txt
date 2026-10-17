@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Block admin and private paths
+Disallow: /api/
+Disallow: /_/*
+
+# Sitemap location
+Sitemap: https://selimi.tech/sitemap.xml
+
+# Crawl delay (courtesy for crawlers)
+Crawl-delay: 5
