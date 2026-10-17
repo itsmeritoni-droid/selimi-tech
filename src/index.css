@@ -549,11 +549,247 @@ button {
   background-color: var(--color-bg-surface);
   border: 1px solid var(--color-border-hairline);
   border-radius: var(--radius-subtle);
-  transition: border-color 0.2s ease;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  position: relative;
 }
 
 .metric-card:hover {
-  border-color: var(--color-border-hover);
+  border-color: var(--color-accent-sage);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(18, 19, 22, 0.04);
+}
+
+.metric-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.metric-anim-wrap {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--color-bg-subtle);
+  color: var(--color-accent-sage);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.metric-card:hover .metric-anim-wrap {
+  transform: scale(1.08);
+  background-color: var(--color-accent-soft);
+}
+
+.metric-svg {
+  width: 32px;
+  height: 32px;
+  overflow: visible;
+}
+
+/* 1. Ladezeit-Animation (< 1s) */
+.speed-arc-progress {
+  stroke: var(--color-accent-sage);
+  animation: speed-sweep 1.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes speed-sweep {
+  0% {
+    stroke-dashoffset: 106;
+    opacity: 0.3;
+  }
+  60% {
+    stroke-dashoffset: 12;
+    opacity: 1;
+  }
+  90%, 100% {
+    stroke-dashoffset: 0;
+    opacity: 0.9;
+  }
+}
+
+.speed-pulse-dot {
+  fill: #2e8b57;
+  transform-origin: 34px 11px;
+  animation: pulse-speed 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-speed {
+  0%, 100% {
+    transform: scale(0.85);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+.speed-needle {
+  transform-origin: 22px 22px;
+  animation: needle-flicker 1.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes needle-flicker {
+  0% {
+    transform: rotate(-60deg);
+  }
+  60% {
+    transform: rotate(38deg);
+  }
+  80% {
+    transform: rotate(30deg);
+  }
+  100% {
+    transform: rotate(35deg);
+  }
+}
+
+/* 2. Maßarbeit-Animation (100% Code-Präzision) */
+.craft-bracket-left {
+  animation: bracket-left-glide 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes bracket-left-glide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-2px);
+  }
+}
+
+.craft-bracket-right {
+  animation: bracket-right-glide 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes bracket-right-glide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(2px);
+  }
+}
+
+.craft-cursor {
+  stroke: var(--color-accent-sage);
+  animation: blink-cursor 0.9s step-start infinite;
+}
+
+@keyframes blink-cursor {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* 3. DACH-Netzwerk-Animation */
+.network-radar-ring {
+  transform-origin: 22px 25px;
+  stroke: var(--color-accent-sage);
+  animation: radar-expand 2.6s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+@keyframes radar-expand {
+  0% {
+    transform: scale(0.3);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0.25;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.network-node-dot {
+  fill: var(--color-accent-sage);
+}
+
+.network-node-pulse {
+  transform-origin: 22px 9px;
+  stroke: var(--color-accent-sage);
+  animation: pulse-node 2.6s ease-out infinite;
+}
+
+@keyframes pulse-node {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.network-travel-dot {
+  fill: var(--color-accent-sage);
+  animation: travel-dach 3.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+@keyframes travel-dach {
+  0% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-11px, 24px);
+  }
+  66% {
+    transform: translate(11px, 24px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* 4. Direktkontakt-Animation (1:1) */
+.direct-node-a, .direct-node-b {
+  stroke: var(--color-accent-sage);
+}
+
+.direct-wave {
+  animation: wave-subtle 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes wave-subtle {
+  0% {
+    opacity: 0.2;
+    transform: scaleY(0.7);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scaleY(1.3);
+  }
+}
+
+.direct-travel-signal {
+  fill: var(--color-accent-sage);
+  animation: signal-bounce 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes signal-bounce {
+  0% {
+    transform: translateX(0);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(26px);
+    opacity: 0.3;
+  }
 }
 
 .metric-val {
@@ -562,7 +798,6 @@ button {
   font-weight: 500;
   color: var(--color-text-primary);
   line-height: 1.1;
-  margin-bottom: 6px;
 }
 
 .metric-label {

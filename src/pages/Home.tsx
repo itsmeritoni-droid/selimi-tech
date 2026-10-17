@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import { SITE_CONTENT } from '../content/content';
 import { ProtectedEmail } from '../components/ProtectedEmail';
+import { MetricAnimation } from '../components/MetricAnimation';
 
 interface HomeProps {
   onNavigate: (pageId: string) => void;
 }
+
+const METRIC_ANIM_TYPES: Array<'speed' | 'craft' | 'network' | 'direct'> = [
+  'speed',
+  'craft',
+  'network',
+  'direct'
+];
 
 export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const { hero, intro, trustMetrics, services, methodology, faq, contact, brand } = SITE_CONTENT;
@@ -84,7 +92,10 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           <div className="trust-metrics-grid">
             {trustMetrics.map((metric, idx) => (
               <div key={idx} className="metric-card">
-                <div className="metric-val">{metric.value}</div>
+                <div className="metric-card-top">
+                  <MetricAnimation type={METRIC_ANIM_TYPES[idx] || 'speed'} />
+                  <div className="metric-val">{metric.value}</div>
+                </div>
                 <div className="metric-label">{metric.label}</div>
                 <div className="metric-note">{metric.note}</div>
               </div>
